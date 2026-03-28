@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Encuesta de satisfacción</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f7fb, #eef2ff);
+      color: #1f2937;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 560px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 1.8rem;
+    }
+
+    p {
+      margin: 0 0 24px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    .group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    select,
+    textarea,
+    button {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #d1d5db;
+      padding: 12px 14px;
+      font-size: 1rem;
+    }
+
+    select,
+    textarea {
+      background: white;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 8px;
+      border: none;
+      background: #111827;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    button:hover {
+      opacity: 0.96;
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .msg {
+      margin-top: 14px;
+      min-height: 22px;
+      font-size: 0.95rem;
+      color: #374151;
+    }
+
+    .success { color: #166534; }
+    .error { color: #b91c1c; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Encuesta breve de satisfacción</h1>
+    <p>Tu respuesta es anónima y nos ayuda a mejorar la clase.</p>
+
+    <form id="surveyForm">
+      <div class="group">
+        <label for="satisfaccion">¿Qué tan satisfecho(a) estás con la clase?</label>
+        <select id="satisfaccion" name="satisfaccion" required>
+          <option value="">Selecciona una opción</option>
+          <option value="Muy satisfecho">Muy satisfecho</option>
+          <option value="Satisfecho">Satisfecho</option>
+          <option value="Neutral">Neutral</option>
+          <option value="Insatisfecho">Insatisfecho</option>
+          <option value="Muy insatisfecho">Muy insatisfecho</option>
+        </select>
+      </div>
+
+      <div class="group">
+        <label for="recomendaria">¿Recomendarías esta clase?</label>
+        <select id="recomendaria" name="recomendaria" required>
+          <option value="">Selecciona una opción</option>
+          <option value="Sí">Sí</option>
+          <option value="Tal vez">Tal vez</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+
+      <div class="group">
+        <label for="comentario">Comentario opcional</label>
+        <textarea
+          id="comentario"
+          name="comentario"
+          placeholder="Escribe aquí tu comentario..."
+        ></textarea>
+      </div>
+
+      <button type="submit" id="submitBtn">Enviar respuesta</button>
+      <div class="msg" id="msg"></div>
+    </form>
+  </div>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxnsMg88Ra94LokvnFPEyoJZoy6qyCq8o74XG3h7R_-eZCtgtklkZ5i1hMG_yaUV68/exec";
+
+    const form = document.getElementById("surveyForm");
+    const msg = document.getElementById("msg");
+    const submitBtn = document.getElementById("submitBtn");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const satisfaccion = document.getElementById("satisfaccion").value;
+      const recomendaria = document.getElementById("recomendaria").value;
+      const comentario = document.getElementById("comentario").value.trim();
+
+      if (!satisfaccion || !recomendaria) {
+        msg.textContent = "Por favor completa los campos obligatorios.";
+        msg.className = "msg error";
+        return;
+      }
+
+      submitBtn.disabled = true;
+      msg.textContent = "Enviando...";
+      msg.className = "msg";
+
+      const data = new URLSearchParams();
+      data.append("satisfaccion", satisfaccion);
+      data.append("recomendaria", recomendaria);
+      data.append("comentario", comentario);
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: data.toString()
+        });
+
+        form.reset();
+        msg.textContent = "¡Gracias! Tu respuesta fue enviada.";
+        msg.className = "msg success";
+      } catch (error) {
+        console.error(error);
+        msg.textContent = "No se pudo enviar. Intenta de nuevo.";
+        msg.className = "msg error";
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
