@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Encuesta de satisfacción</title>
+  <title>Evaluación de satisfacción</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
       --primary-3:#c77dff;
       --success:#1f8a5b;
       --danger:#b3261e;
-      --shadow: 0 20px 60px rgba(38, 10, 62, 0.28);
+      --shadow:0 20px 60px rgba(38, 10, 62, 0.28);
     }
 
     *{box-sizing:border-box}
@@ -74,7 +74,7 @@
 
     .shell{
       width:100%;
-      max-width:680px;
+      max-width:900px;
       position:relative;
       z-index:2;
     }
@@ -89,7 +89,6 @@
     }
 
     .hero{
-      position:relative;
       padding:34px 30px 24px;
       background:
         radial-gradient(circle at 15% 20%, rgba(255,255,255,.18), transparent 20%),
@@ -133,7 +132,7 @@
       color:rgba(255,255,255,.9);
       font-size:1rem;
       line-height:1.6;
-      max-width:540px;
+      max-width:680px;
     }
 
     .content{
@@ -145,6 +144,21 @@
       color:var(--muted);
       font-size:.97rem;
       line-height:1.65;
+    }
+
+    .section{
+      margin-top:24px;
+      padding:22px;
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:#fdfaff;
+    }
+
+    .section-title{
+      margin:0 0 18px;
+      font-size:1.08rem;
+      font-weight:800;
+      color:#43235f;
     }
 
     .grid{
@@ -162,6 +176,7 @@
       font-size:.95rem;
       font-weight:700;
       color:#38284a;
+      line-height:1.5;
     }
 
     select,
@@ -197,7 +212,7 @@
     }
 
     .actions{
-      margin-top:22px;
+      margin-top:26px;
       display:flex;
       flex-direction:column;
       gap:12px;
@@ -221,10 +236,6 @@
     .button:hover{
       transform:translateY(-1px);
       box-shadow:0 16px 28px rgba(123,44,191,.33);
-    }
-
-    .button:active{
-      transform:translateY(0);
     }
 
     .button:disabled{
@@ -261,6 +272,7 @@
       .hero{ padding:26px 20px 20px; }
       .content{ padding:22px 20px 24px; }
       .card{ border-radius:22px; }
+      .section{ padding:18px; }
     }
   </style>
 </head>
@@ -273,18 +285,18 @@
       <div class="hero">
         <div class="badge">
           <span class="badge-dot"></span>
-          Encuesta anónima
+          Evaluación anónima
         </div>
-        <h1>Quiero conocer tu experiencia</h1>
+        <h1>Quiero conocer tu experiencia en el curso</h1>
         <p>
-          Este formulario breve me ayuda a conocer tu percepción y
-          continuar mejorando la clase desde una mirada más humana, cercana y útil.
+          Esta evaluación me ayuda a identificar fortalezas, áreas de mejora y seguir
+          construyendo una experiencia de aprendizaje más clara, respetuosa y útil.
         </p>
       </div>
 
       <div class="content">
         <p class="intro">
-          Tu respuesta es completamente anónima. Sólo te tomará unos segundos.
+          Tu respuesta es completamente anónima. Evalúa cada aspecto con honestidad.
         </p>
 
         <form
@@ -293,48 +305,176 @@
           method="POST"
           target="hidden_iframe"
         >
-          <div class="grid">
-            <div class="field">
-              <label class="label" for="satisfaccion">¿Qué tan satisfecho/a estás con la clase?</label>
-              <select id="satisfaccion" name="satisfaccion" required>
-                <option value="">Selecciona una opción</option>
-                <option value="Muy satisfecho(a)">Muy satisfecho(a)</option>
-                <option value="Satisfecho(a)">Satisfecho(a)</option>
-                <option value="Neutral">Neutral</option>
-                <option value="Insatisfecho(a)">Insatisfecho(a)</option>
-                <option value="Muy insatisfecho(a)">Muy insatisfecho(a)</option>
-              </select>
-            </div>
+          <div class="section">
+            <h2 class="section-title">Sobre el curso</h2>
+            <div class="grid">
+              <div class="field">
+                <label class="label" for="objetivo_general">Se cubrió el objetivo general</label>
+                <select id="objetivo_general" name="objetivo_general" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Excelente">Excelente</option>
+                  <option value="Bueno">Bueno</option>
+                  <option value="Regular">Regular</option>
+                  <option value="Malo">Malo</option>
+                </select>
+              </div>
 
-            <div class="field">
-              <label class="label" for="recomendaria">¿Recomendarías esta clase a otra persona?</label>
-              <select id="recomendaria" name="recomendaria" required>
-                <option value="">Selecciona una opción</option>
-                <option value="Sí">Sí</option>
-                <option value="Tal vez">Tal vez</option>
-                <option value="No">No</option>
-              </select>
+              <div class="field">
+                <label class="label" for="actividades_aprendizaje">Se realizaron actividades de aprendizaje</label>
+                <select id="actividades_aprendizaje" name="actividades_aprendizaje" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Excelente">Excelente</option>
+                  <option value="Bueno">Bueno</option>
+                  <option value="Regular">Regular</option>
+                  <option value="Malo">Malo</option>
+                </select>
+              </div>
             </div>
+          </div>
 
-            <div class="field">
-              <label class="label" for="comentario">Dime que te agradó más y qué se puede mejorar</label>
-              <textarea
-                id="comentario"
-                name="comentario"
-                placeholder="Tu comentario es opcional"
-              ></textarea>
-              <div class="hint">Puedes dejar este campo vacío si así lo prefieres, aunque me encantaría conocer tu opinión</div>
+          <div class="section">
+            <h2 class="section-title">Sobre la docente</h2>
+            <div class="grid">
+              <div class="field">
+                <label class="label" for="docente_organizacion">Mostró organización en su trabajo</label>
+                <select id="docente_organizacion" name="docente_organizacion" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Excelente">Excelente</option>
+                  <option value="Bueno">Bueno</option>
+                  <option value="Regular">Regular</option>
+                  <option value="Malo">Malo</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label class="label" for="docente_claridad">Claridad al exponer</label>
+                <select id="docente_claridad" name="docente_claridad" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Excelente">Excelente</option>
+                  <option value="Bueno">Bueno</option>
+                  <option value="Regular">Regular</option>
+                  <option value="Malo">Malo</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label class="label" for="docente_respeto">Respetó a las y los participantes</label>
+                <select id="docente_respeto" name="docente_respeto" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Excelente">Excelente</option>
+                  <option value="Bueno">Bueno</option>
+                  <option value="Regular">Regular</option>
+                  <option value="Malo">Malo</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label class="label" for="docente_participacion">Promovió la participación del alumnado durante el curso</label>
+                <select id="docente_participacion" name="docente_participacion" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Excelente">Excelente</option>
+                  <option value="Bueno">Bueno</option>
+                  <option value="Regular">Regular</option>
+                  <option value="Malo">Malo</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h2 class="section-title">Sobre el material didáctico</h2>
+            <div class="grid">
+              <div class="field">
+                <label class="label" for="material_util">Fue suficiente y útil</label>
+                <select id="material_util" name="material_util" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Excelente">Excelente</option>
+                  <option value="Bueno">Bueno</option>
+                  <option value="Regular">Regular</option>
+                  <option value="Malo">Malo</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label class="label" for="material_presentaciones">Las presentaciones fueron claras y atractivas</label>
+                <select id="material_presentaciones" name="material_presentaciones" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Excelente">Excelente</option>
+                  <option value="Bueno">Bueno</option>
+                  <option value="Regular">Regular</option>
+                  <option value="Malo">Malo</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label class="label" for="material_lenguaje">Presentó un lenguaje técnico pero entendible</label>
+                <select id="material_lenguaje" name="material_lenguaje" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Excelente">Excelente</option>
+                  <option value="Bueno">Bueno</option>
+                  <option value="Regular">Regular</option>
+                  <option value="Malo">Malo</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label class="label" for="material_relacion">Estuvo relacionado con el tema</label>
+                <select id="material_relacion" name="material_relacion" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Excelente">Excelente</option>
+                  <option value="Bueno">Bueno</option>
+                  <option value="Regular">Regular</option>
+                  <option value="Malo">Malo</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h2 class="section-title">Expectativas generales</h2>
+            <div class="grid">
+              <div class="field">
+                <label class="label" for="expectativas">En general, mis expectativas con relación al curso:</label>
+                <select id="expectativas" name="expectativas" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="Se superaron">Se superaron</option>
+                  <option value="Se cumplieron">Se cumplieron</option>
+                  <option value="Se cumplieron parcialmente">Se cumplieron parcialmente</option>
+                  <option value="No se cumplieron">No se cumplieron</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h2 class="section-title">Comentarios finales</h2>
+            <div class="grid">
+              <div class="field">
+                <label class="label" for="mas_gusto">En general, lo que más me gustó del taller fue:</label>
+                <textarea id="mas_gusto" name="mas_gusto" placeholder="Escribe tu respuesta"></textarea>
+              </div>
+
+              <div class="field">
+                <label class="label" for="menos_gusto">En general, lo que menos me gustó del taller fue:</label>
+                <textarea id="menos_gusto" name="menos_gusto" placeholder="Escribe tu respuesta"></textarea>
+              </div>
+
+              <div class="field">
+                <label class="label" for="comentarios">Comentarios y sugerencias:</label>
+                <textarea id="comentarios" name="comentarios" placeholder="Escribe tu respuesta"></textarea>
+                <div class="hint">Tus comentarios me ayudan mucho a mejorar futuras sesiones.</div>
+              </div>
             </div>
           </div>
 
           <div class="actions">
-            <button class="button" id="submitBtn" type="submit">Enviar respuesta</button>
+            <button class="button" id="submitBtn" type="submit">Enviar evaluación</button>
             <div class="status info" id="status"></div>
           </div>
         </form>
 
         <p class="footer-note">
-          Gracias por tu tiempo.
+          Gracias por tu participación.
         </p>
       </div>
     </div>
@@ -346,33 +486,46 @@
     const form = document.getElementById("surveyForm");
     const statusBox = document.getElementById("status");
     const submitBtn = document.getElementById("submitBtn");
-    let isSubmitting = false;
+    const iframe = document.getElementById("hidden_iframe");
+    let submitted = false;
+
+    const requiredFields = [
+      "objetivo_general",
+      "actividades_aprendizaje",
+      "docente_organizacion",
+      "docente_claridad",
+      "docente_respeto",
+      "docente_participacion",
+      "material_util",
+      "material_presentaciones",
+      "material_lenguaje",
+      "material_relacion",
+      "expectativas"
+    ];
 
     form.addEventListener("submit", function (e) {
-      const satisfaccion = document.getElementById("satisfaccion").value;
-      const recomendaria = document.getElementById("recomendaria").value;
+      const incomplete = requiredFields.some(id => !document.getElementById(id).value);
 
-      if (!satisfaccion || !recomendaria) {
+      if (incomplete) {
         e.preventDefault();
-        statusBox.textContent = "Por favor completa los campos obligatorios.";
+        statusBox.textContent = "Por favor completa todos los campos obligatorios de evaluación.";
         statusBox.className = "status error";
         return;
       }
 
-      isSubmitting = true;
+      submitted = true;
       submitBtn.disabled = true;
-      statusBox.textContent = "Enviando respuesta...";
+      statusBox.textContent = "Enviando evaluación...";
       statusBox.className = "status info";
+    });
 
-      setTimeout(() => {
-        if (isSubmitting) {
-          form.reset();
-          statusBox.textContent = "¡Gracias! Tu respuesta fue enviada.";
-          statusBox.className = "status success";
-          submitBtn.disabled = false;
-          isSubmitting = false;
-        }
-      }, 1200);
+    iframe.addEventListener("load", function () {
+      if (!submitted) return;
+      form.reset();
+      statusBox.textContent = "¡Gracias! Tu evaluación fue enviada.";
+      statusBox.className = "status success";
+      submitBtn.disabled = false;
+      submitted = false;
     });
   </script>
 </body>
